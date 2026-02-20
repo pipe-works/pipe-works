@@ -23,24 +23,54 @@ their current CSS to the unified `pipe-works-base.css` + `pipe-works-fonts.css`.
 
 ### 1. Axis Descriptor Lab (`pipeworks_axis_descriptor_lab`)
 
-**Status:** Canonical source — minimal changes needed.
+**Status:** Migrated (PR [#37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37))
 **Effort:** Low
 
-**Steps:**
-1. Extract font declarations into `pipe-works-fonts.css` (the lab currently has
-   no editorial fonts declared — it uses system fonts only)
-2. Move design tokens and common components into `pipe-works-base.css`
-3. Keep app-specific styles (axis rows, diff views, signal panels, indicator
-   modals) in `styles.css`
-4. Import order: `fonts.css` -> `base.css` -> `styles.css`
+**What was done:**
 
-**Variable changes:** None — base CSS uses the `--col-*` convention from this project.
+1. Copied `pipe-works-fonts.css`, `pipe-works-base.css`, and 16 woff2 font files
+   into `app/static/`
+2. Added `<link>` tags for fonts and base CSS before `styles.css` in the Jinja2
+   template (`index.html`)
+3. Removed ~650 lines from `styles.css` now covered by the base: reset, design
+   tokens, global styles, app-header/title/subtitle, panel/panel__heading,
+   control-label/control-row, inputs/select/code-editor, buttons, badges,
+   range-input, output-box, toggle-label/toggle-text, divider, status-bar,
+   spinner, utilities (hidden, placeholder-text), scrollbar, tooltip
+   bubble/arrow, and their light-theme overrides
+4. Added `position: fixed` overrides for `.app-header` and `.status-bar` (base
+   uses `flex-shrink: 0` for flex layouts; the lab's three-column fixed grid
+   requires fixed positioning)
+5. Replaced hardcoded colours with tokens: `--col-code-bg`, `--col-border-hi`,
+   `--col-accent-glow`, `--col-backdrop`, `color-mix()` for semi-transparent
+   borders
+6. Renamed `--tooltip-*` → `--col-tooltip-*` in `mod-tooltip.js` (2 references)
+7. Fixed `--fs-sm` typo → `--text-sm` in `.input--url`
+8. Reduced light-theme overrides to 2 app-specific rules (`.tmap-indicator`)
+
+**Result:** `styles.css` reduced from 1411 to 759 lines. No visual changes.
+
+**Lessons for other migrations:**
+
+- The base CSS `.app-header` and `.status-bar` use `flex-shrink: 0`, which
+  assumes a flex-parent shell. Projects using `position: fixed` layouts need
+  to re-add positioning in their app-specific CSS.
+- The base CSS `.divider` adds `margin: var(--sp-3) 0` — check whether this
+  affects spacing in your app before extracting.
+- The base CSS spinner uses `@keyframes pw-spin` (not `spin`) — search for
+  any JS references to the animation name.
+- `color-mix(in srgb, var(--token) N%, transparent)` is a clean replacement
+  for hardcoded `rgba()` values that need to adapt to theme switching.
+- The base CSS global monospace rule (`h1–h6, button, input, select, textarea,
+  table, code { font-family: var(--font-mono) }`) had no impact on the lab
+  because it already applied monospace per-class, but projects that rely on
+  inheriting `--font-ui` for these elements will need explicit overrides.
 
 ---
 
 ### 2. Name Generator (`pipeworks_name_generation`)
 
-**Status:** Derivative — needs variable rename + class migration.
+**Status:** Not started — needs variable rename + class migration.
 **Effort:** Medium
 
 **Steps:**
@@ -94,7 +124,7 @@ their current CSS to the unified `pipe-works-base.css` + `pipe-works-fonts.css`.
 
 ### 3. MUD Server Admin (`pipeworks_mud_server`)
 
-**Status:** Divergent — needs full aesthetic alignment.
+**Status:** Not started — needs full aesthetic alignment.
 **Effort:** High
 **Scope:** Admin shell only — the play UI is separate and excluded.
 
@@ -240,28 +270,35 @@ New Pipe-Works tool projects should:
 
 When migrating any project, check for these potential issues:
 
-- [ ] **Raw element selectors** — Base CSS applies `font-family: --font-mono` to
+- [x] **Raw element selectors** — Base CSS applies `font-family: --font-mono` to
   all headings, buttons, inputs, tables, and code. If your app relies on
   inheriting `--font-ui` for these elements, add explicit overrides.
+  *Axis Descriptor Lab: no impact — already monospace per-class.*
 
-- [ ] **Theme toggle direction** — Base CSS uses dark as default with
+- [x] **Theme toggle direction** — Base CSS uses dark as default with
   `[data-theme="light"]` on `<html>` as override. Projects that default to light
   (MUD server admin) must flip their theme toggle logic.
+  *Axis Descriptor Lab: already dark-default.*
 
-- [ ] **Light theme selector** — Base CSS uses `[data-theme="light"]` on `<html>`.
+- [x] **Light theme selector** — Base CSS uses `[data-theme="light"]` on `<html>`.
   The name generator uses `body[data-theme="light"]`. The MUD server admin uses
   `html[data-theme="dark"]`. All must standardise to `<html>` with light as the
   non-default state.
+  *Axis Descriptor Lab: already uses `html[data-theme="light"]`.*
 
-- [ ] **Reset aggressiveness** — Base CSS zeroes all margins and padding on
+- [x] **Reset aggressiveness** — Base CSS zeroes all margins and padding on
   `*, *::before, *::after`. If your app relies on default browser margins for
   `<p>`, `<h1>`, `<ul>`, etc., add explicit margins.
+  *Axis Descriptor Lab: already had identical reset.*
 
-- [ ] **List style** — Base CSS sets `list-style: none` on `<ul>` and `<ol>`.
+- [x] **List style** — Base CSS sets `list-style: none` on `<ul>` and `<ol>`.
   Add `list-style: disc` (or `square`) explicitly where needed.
+  *Axis Descriptor Lab: no lists in the SPA.*
 
-- [ ] **Button reset** — Base CSS resets `<button>` to `background: none;
+- [x] **Button reset** — Base CSS resets `<button>` to `background: none;
   border: 0; padding: 0`. All buttons must use `.btn` classes for styling.
+  *Axis Descriptor Lab: all buttons already use `.btn` or custom classes
+  (`.theme-toggle`, `.tooltip-toggle`).*
 
 - [ ] **Accent colour** — Projects using blue accent (`#2563eb`) must switch to
   amber (`#f59e0b` dark / `#c27b0a` light). Search for hardcoded blue values
@@ -271,8 +308,24 @@ When migrating any project, check for these potential issues:
   with `box-shadow: var(--shadow-soft)` on every card should remove or reduce
   shadows to match.
 
-- [ ] **`color-mix()` support** — Used for transparent borders. Requires
+- [x] **`color-mix()` support** — Used for transparent borders. Requires
   Chrome 111+, Firefox 113+, Safari 16.2+. All current browsers support it.
+  *Axis Descriptor Lab: adopted `color-mix()` for meta-table, meta-copy-btn,
+  and tmap-indicator borders.*
+
+- [x] **`.divider` margin** — Base CSS adds `margin: var(--sp-3) 0` to
+  `.divider`. Projects with tighter spacing may need to override.
+  *Axis Descriptor Lab: no impact — dividers are inside flex panels that
+  control spacing via `gap`.*
+
+- [x] **Spinner keyframe name** — Base CSS uses `@keyframes pw-spin` instead
+  of `spin`. Search for JS references to the animation name.
+  *Axis Descriptor Lab: no JS references found.*
+
+- [x] **`position: fixed` shell components** — Base CSS `.app-header` and
+  `.status-bar` use `flex-shrink: 0` (for flex-parent layouts). Projects
+  using fixed-position layouts must re-add `position: fixed` and coordinates.
+  *Axis Descriptor Lab: added overrides in app-specific CSS.*
 
 ---
 
@@ -336,8 +389,8 @@ one component at a time.
 
 ## Migration Priority
 
-| Project | Effort | Priority | Reason |
+| Project | Effort | Priority | Status |
 |---------|--------|----------|--------|
-| Axis Descriptor Lab | Low | 1st | Canonical source, mostly extraction |
-| Name Generator | Medium | 2nd | Variable rename + class + BEM migration |
-| MUD Server Admin | High | 3rd | Full aesthetic realignment + BEM adoption |
+| Axis Descriptor Lab | Low | 1st | **Done** — [PR #37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37) |
+| Name Generator | Medium | 2nd | Not started |
+| MUD Server Admin | High | 3rd | Not started |
