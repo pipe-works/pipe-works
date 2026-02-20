@@ -37,10 +37,12 @@ This repository serves as:
 
 | Component                                                                                              | Current Version | Target     | Status                |
 | ------------------------------------------------------------------------------------------------------ | --------------- | ---------- | --------------------- |
-| [pipeworks_name_generation](https://github.com/pipe-works/pipeworks_name_generation)                   | 0.5.12          | 1.0.0-beta | 🟡 Active Development |
-| [pipeworks_entity_state_generation](https://github.com/pipe-works/pipeworks_entity_state_generation)   | 0.11.0          | 1.0.0-beta | 🟡 Active Development |
+| [pipeworks_name_generation](https://github.com/pipe-works/pipeworks_name_generation)                   | 0.5.20          | 1.0.0-beta | 🟡 Active Development |
+| [pipeworks_entity_state_generation](https://github.com/pipe-works/pipeworks_entity_state_generation)   | 0.11.1          | 1.0.0-beta | 🟡 Active Development |
+| [pipeworks_axis_descriptor_lab](https://github.com/pipe-works/pipeworks_axis_descriptor_lab)            | 0.1.10          | 1.0.0-beta | 🟡 Active Development |
 | [pipeworks-image-generator](https://github.com/pipe-works/pipeworks-image-generator)                   | 0.1.1           | 1.0.0-beta | 🟡 Active Development |
 | [pipeworks_mud_server](https://github.com/pipe-works/pipeworks_mud_server)                             | 0.1.1           | 1.0.0-beta | 🟡 Active Development |
+| [pipeworks_mud_mapper](https://github.com/pipe-works/pipeworks_mud_mapper)                             | 0.1.10          | 1.0.0-beta | 🟠 Alpha              |
 | **pipe-works (meta)**                                                                                  | -               | 1.0.0-beta | ⏸️ Waiting            |
 
 Once all components reach 1.0.0 Beta, this meta-package will be published to PyPI.
@@ -83,14 +85,27 @@ pip install pipe-works[ml]       # ML models for image generation
   - Build tools for custom corpora
 
 - **[pipeworks_entity_state_generation](https://github.com/pipe-works/pipeworks_entity_state_generation)** - Axis-based character condition generator
-  - Character physical/social conditions
-  - Facial signals and occupation axes
-  - Weighted probability with exclusion rules
+  - Character physical/social conditions (6 axes: physique, age, health, wealth, demeanor, reputation)
+  - Facial signals (12 signal types) and occupation axes
+  - Zero runtime dependencies, weighted probability with exclusion rules
 
 - **[pipeworks-image-generator](https://github.com/pipe-works/pipeworks-image-generator)** - Code-first image generation framework
   - Plugin architecture with lifecycle hooks
   - Workflow system (character portraits, game assets)
   - Z-Image-Turbo adapter with Gradio UI
+
+### Development & Authoring Tools
+
+- **[pipeworks_axis_descriptor_lab](https://github.com/pipe-works/pipeworks_axis_descriptor_lab)** - LLM descriptor testing workbench
+  - Tests how small LLMs (via Ollama) produce non-authoritative descriptive text from axis payloads
+  - IPC fingerprinting for descriptor comparison
+  - FastAPI + vanilla JS, 561 tests / 99% coverage
+
+- **[pipeworks_mud_mapper](https://github.com/pipe-works/pipeworks_mud_mapper)** - Interactive MUD zone editor
+  - Visual map editor for creating and editing MUD zone files
+  - Room management, exit system, multi-level support
+  - Two-file workflow: SQLite for authoring, JSON exports for game server
+  - Dash + Plotly interface
 
 ### Game Server
 
@@ -140,11 +155,14 @@ All components follow unified standards:
 
 - **Organization Standards**: [pipe-works/.github](https://github.com/pipe-works/.github)
 - **Philosophy & Demos**: [pipe-works.org](https://pipe-works.org)
+- **Design System**: [styles/](styles/) — App tools and editorial style guides, base CSS, token maps
 - **Component Docs**:
   - [pipeworks_name_generation docs](https://pipeworks-name-generation.readthedocs.io/en/latest/)
   - [pipeworks_entity_state_generation docs](https://pipeworks-entity-state-generation.readthedocs.io/en/latest/)
+  - [pipeworks_axis_descriptor_lab docs](https://pipeworks-axis-descriptor-lab.readthedocs.io/en/latest/)
   - [pipeworks-image-generator docs](https://pipeworks-image-generator.readthedocs.io/en/latest/)
   - [pipeworks_mud_server docs](https://pipeworks-mud-server.readthedocs.io/en/latest/)
+  - [pipeworks_mud_mapper docs](https://pipeworks-mud-mapper.readthedocs.io/en/latest/)
 
 ## Why No CI/CD Yet?
 
