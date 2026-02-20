@@ -5,6 +5,14 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 > The website (editorial) uses a completely separate token system (`--ink-*`, `--paper-*`)
 > and is not included here. See [`../editorial/STYLE_GUIDE.md`](../editorial/STYLE_GUIDE.md).
 
+### Migration Status
+
+| Project | Status | Notes |
+|---|---|---|
+| Axis Descriptor Lab | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
+| Name Generator | Not started | Requires variable rename + class migration. |
+| MUD Server Admin | Not started | Full aesthetic alignment needed. |
+
 ---
 
 ## Colour Tokens
@@ -26,14 +34,14 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 | `--col-err` | `--col-err` | `--err` | `--color-danger` |
 | `--col-warn` | `--col-warn` | — | — |
 | `--col-info` | `--col-info` | — | — |
-| `--col-code-bg` | — (hardcoded `#0d0f12`) | `--code-bg` | — |
-| `--col-code-text` | — (hardcoded) | `--code-text` | — |
-| `--col-code-inline` | — | `--code-inline-text` | — |
-| `--col-button-text` | — (hardcoded `#111`) | `--button-text` | — (hardcoded `#fff`) |
-| `--col-backdrop` | — (hardcoded) | — (hardcoded) | — |
-| `--col-tooltip-bg` | `--tooltip-bg` | — | — |
-| `--col-tooltip-text` | `--tooltip-text` | — | — |
-| `--col-tooltip-border` | `--tooltip-border` | — | — |
+| `--col-code-bg` | `--col-code-bg` | `--code-bg` | — |
+| `--col-code-text` | `--col-code-text` | `--code-text` | — |
+| `--col-code-inline` | `--col-code-inline` | `--code-inline-text` | — |
+| `--col-button-text` | `--col-button-text` | `--button-text` | — (hardcoded `#fff`) |
+| `--col-backdrop` | `--col-backdrop` | — (hardcoded) | — |
+| `--col-tooltip-bg` | `--col-tooltip-bg` | — | — |
+| `--col-tooltip-text` | `--col-tooltip-text` | — | — |
+| `--col-tooltip-border` | `--col-tooltip-border` | — | — |
 | `--col-diff-add` | `--col-diff-add` | — | — |
 | `--col-diff-del` | `--col-diff-del` | — | — |
 | `--col-diff-add-text` | `--col-diff-add-text` | — | — |
@@ -63,12 +71,12 @@ standard. These values will need to change during alignment:
 |---|---|---|---|
 | `--font-mono` | `--font-mono` | `--font-mono` | — (not defined) |
 | `--font-ui` | `--font-ui` | `--font-ui` | — (uses `"Sora"` directly on `:root`) |
-| `--font-masthead` | — | — | — |
-| `--font-headline` | — | — | — |
-| `--font-body` | — | — | — |
-| `--font-record` | — | — | — |
-| `--font-symbols` | — | — | — |
-| `--font-accent` | — | — | — |
+| `--font-masthead` | `--font-masthead` (via base) | — | — |
+| `--font-headline` | `--font-headline` (via base) | — | — |
+| `--font-body` | `--font-body` (via base) | — | — |
+| `--font-record` | `--font-record` (via base) | — | — |
+| `--font-symbols` | `--font-symbols` (via base) | — | — |
+| `--font-accent` | `--font-accent` (via base) | — | — |
 
 ### MUD Server Admin — Typography Differences
 
@@ -116,9 +124,9 @@ The admin shell uses **no font tokens** and no monospace font:
 | `--header-h` (`2.75rem`) | `--header-h` | `--header-h` | — (no fixed header) |
 | `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` | — (no status bar) |
 | `--panel-pad` (`1rem`) | `--panel-pad` | — | — |
-| `--radius-sm` (`4px`) | — (hardcoded) | — (hardcoded) | — (uses `10px`) |
-| `--radius-md` (`8px`) | — (hardcoded) | — (hardcoded) | — (uses `12-16px`) |
-| `--radius-lg` (`12px`) | — (hardcoded) | — (hardcoded) | — (uses `18-20px`) |
+| `--radius-sm` (`4px`) | `--radius-sm` | — (hardcoded) | — (uses `10px`) |
+| `--radius-md` (`8px`) | `--radius-md` | — (hardcoded) | — (uses `12-16px`) |
+| `--radius-lg` (`12px`) | `--radius-lg` | — (hardcoded) | — (uses `18-20px`) |
 | — | — | — | `--layout-max` (`1600px`) |
 | — | — | — | `--layout-pad` (`32px`) |
 
@@ -166,7 +174,7 @@ The admin shell uses **no font tokens** and no monospace font:
 | `.spinner` | `.spinner` | — | — |
 | `.divider` | `.divider` | `.section-divider` | — |
 | `.hidden` | `.hidden` | — | — |
-| `.u-sr-only` | — | — | — |
+| `.u-sr-only` | `.u-sr-only` (via base) | — | — |
 | — | — | — | `.tag` (pill-shaped chip) |
 | — | — | — | `.toast`, `.toast-container` |
 | — | — | `.tab`, `.tab.active` | `.tab-button`, `.tab-button.is-active` |
