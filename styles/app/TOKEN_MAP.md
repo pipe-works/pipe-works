@@ -11,7 +11,7 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 |---|---|---|
 | Axis Descriptor Lab | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 | Name Generator | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
-| MUD Server Admin | Not started | Full aesthetic alignment needed. |
+| MUD Server Admin | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 
 ---
 
@@ -19,25 +19,25 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--col-bg` | `--col-bg` | `--col-bg` | `--color-bg` |
-| `--col-surface` | `--col-surface` | `--col-surface` | `--color-surface` |
-| `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--color-surface-raised` |
-| `--col-border` | `--col-border` | `--col-border` | `--color-border` |
-| `--col-border-hi` | `--col-border-hi` | `--col-border-hi` | — (not defined) |
-| `--col-text` | `--col-text` | `--col-text` | `--color-text` |
-| `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--color-muted` |
-| `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | — |
-| `--col-accent` | `--col-accent` | `--col-accent` | `--color-accent` |
-| `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` | — |
-| `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | — |
-| `--col-ok` | `--col-ok` | `--col-ok` | `--color-success` |
-| `--col-err` | `--col-err` | `--col-err` | `--color-danger` |
+| `--col-bg` | `--col-bg` | `--col-bg` | `--col-bg` (via base) |
+| `--col-surface` | `--col-surface` | `--col-surface` | `--col-surface` (via base) |
+| `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--col-surface-2` (via base) |
+| `--col-border` | `--col-border` | `--col-border` | `--col-border` (via base) |
+| `--col-border-hi` | `--col-border-hi` | `--col-border-hi` | `--col-border-hi` (via base) |
+| `--col-text` | `--col-text` | `--col-text` | `--col-text` (via base) |
+| `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--col-text-muted` (via base) |
+| `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | `--col-text-dim` (via base) |
+| `--col-accent` | `--col-accent` | `--col-accent` | `--col-accent` (via base) |
+| `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` (via base) |
+| `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` (via base) |
+| `--col-ok` | `--col-ok` | `--col-ok` | `--col-ok` (via base) |
+| `--col-err` | `--col-err` | `--col-err` | `--col-err` (via base) |
 | `--col-warn` | `--col-warn` | — | — |
 | `--col-info` | `--col-info` | — | — |
-| `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | — |
-| `--col-code-text` | `--col-code-text` | `--col-code-text` | — |
+| `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | `--col-code-bg` (via base) |
+| `--col-code-text` | `--col-code-text` | `--col-code-text` | `--col-code-text` (via base) |
 | `--col-code-inline` | `--col-code-inline` | `--col-code-inline` | — |
-| `--col-button-text` | `--col-button-text` | `--col-button-text` | — (hardcoded `#fff`) |
+| `--col-button-text` | `--col-button-text` | `--col-button-text` | `--col-button-text` (via base) |
 | `--col-backdrop` | `--col-backdrop` | `--col-backdrop` | — |
 | `--col-tooltip-bg` | `--col-tooltip-bg` | — | — |
 | `--col-tooltip-text` | `--col-tooltip-text` | — | — |
@@ -46,22 +46,6 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 | `--col-diff-del` | `--col-diff-del` | — | — |
 | `--col-diff-add-text` | `--col-diff-add-text` | — | — |
 | `--col-diff-del-text` | `--col-diff-del-text` | — | — |
-| — | — | — | `--color-bg-alt` (no equivalent) |
-| — | — | — | `--color-sidebar` (no equivalent) |
-| — | — | — | `--shadow-soft` (no equivalent) |
-
-### MUD Server Admin — Colour Value Differences
-
-The admin shell currently uses a **completely different palette** from the app tools
-standard. These values will need to change during alignment:
-
-| Token | Admin Current (Light) | App Tools (Light) | Admin Current (Dark) | App Tools (Dark) |
-|---|---|---|---|---|
-| Background | `#e9edf4` (cool blue-grey) | `#f4f1ec` (warm paper) | `#0b111a` (navy) | `#111214` (neutral dark) |
-| Surface | `#ffffff` (white) | `#faf8f5` (warm white) | `#1a2332` (blue-dark) | `#1c1e22` (neutral dark) |
-| Accent | `#2563eb` (blue) | `#c27b0a` (amber) | `#6aa0ff` (light blue) | `#f59e0b` (amber) |
-| OK/Success | `#1d7a3a` (green) | `#16a34a` (green) | `#6ad98f` | `#22c55e` |
-| Error/Danger | `#c0392b` (red) | `#dc2626` (red) | `#ff6b6b` | `#ef4444` |
 
 ---
 
@@ -69,28 +53,15 @@ standard. These values will need to change during alignment:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--font-mono` | `--font-mono` | `--font-mono` (via base) | — (not defined) |
-| `--font-ui` | `--font-ui` | `--font-ui` (via base) | — (uses `"Sora"` directly on `:root`) |
-| `--font-heading` | `--font-heading` (via base) | `--font-heading` (via base) | — |
-| `--font-body` | `--font-body` (via base) | `--font-body` (via base) | — |
-| `--font-masthead` | `--font-masthead` (via base) | `--font-masthead` (via base) | — |
-| `--font-headline` | `--font-headline` (via base) | `--font-headline` (via base) | — |
-| `--font-record` | `--font-record` (via base) | `--font-record` (via base) | — |
-| `--font-symbols` | `--font-symbols` (via base) | `--font-symbols` (via base) | — |
-| `--font-accent` | `--font-accent` (via base) | `--font-accent` (via base) | — |
-
-### MUD Server Admin — Typography Differences
-
-The admin shell uses **no font tokens** and no monospace font:
-
-| Aspect | Admin Current | App Tools Standard |
-|---|---|---|
-| Base font | `"Sora", "Avenir Next", "Segoe UI", sans-serif` | `system-ui, -apple-system, "Segoe UI", sans-serif` |
-| Headings | Sans-serif (inherited) | Monospace (`--font-mono`) |
-| Buttons | Sans-serif (inherited) | Monospace (`--font-mono`) |
-| Inputs | Sans-serif (inherited) | Monospace (`--font-mono`) |
-| Tables | Sans-serif (inherited) | Monospace (`--font-mono`) |
-| Font size | `16px` base | `0.875rem` (14px) base |
+| `--font-mono` | `--font-mono` | `--font-mono` (via base) | `--font-mono` (via base) |
+| `--font-ui` | `--font-ui` | `--font-ui` (via base) | `--font-ui` (via base) |
+| `--font-heading` | `--font-heading` (via base) | `--font-heading` (via base) | `--font-heading` (via base) |
+| `--font-body` | `--font-body` (via base) | `--font-body` (via base) | `--font-body` (via base) |
+| `--font-masthead` | `--font-masthead` (via base) | `--font-masthead` (via base) | `--font-masthead` (via base) |
+| `--font-headline` | `--font-headline` (via base) | `--font-headline` (via base) | `--font-headline` (via base) |
+| `--font-record` | `--font-record` (via base) | `--font-record` (via base) | `--font-record` (via base) |
+| `--font-symbols` | `--font-symbols` (via base) | `--font-symbols` (via base) | `--font-symbols` (via base) |
+| `--font-accent` | `--font-accent` (via base) | `--font-accent` (via base) | `--font-accent` (via base) |
 
 ---
 
@@ -98,11 +69,11 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--text-xs` (`0.70rem`) | `--text-xs` | `--text-xs` (via base) | — (hardcoded various) |
-| `--text-sm` (`0.80rem`) | `--text-sm` | `--text-sm` (via base) | — |
-| `--text-base` (`0.875rem`) | `--text-base` | `--text-base` (via base) | — (`16px` on `:root`) |
-| `--text-lg` (`1.0rem`) | `--text-lg` | `--text-lg` (via base) | — |
-| `--text-xl` (`1.15rem`) | `--text-xl` | `--text-xl` (via base) | — |
+| `--text-xs` (`0.70rem`) | `--text-xs` | `--text-xs` (via base) | `--text-xs` (via base) |
+| `--text-sm` (`0.80rem`) | `--text-sm` | `--text-sm` (via base) | `--text-sm` (via base) |
+| `--text-base` (`0.875rem`) | `--text-base` | `--text-base` (via base) | `--text-base` (via base) |
+| `--text-lg` (`1.0rem`) | `--text-lg` | `--text-lg` (via base) | `--text-lg` (via base) |
+| `--text-xl` (`1.15rem`) | `--text-xl` | `--text-xl` (via base) | `--text-xl` (via base) |
 
 ---
 
@@ -110,11 +81,11 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--sp-1` (`0.25rem`) | `--sp-1` | `--sp-1` (via base) | — (hardcoded) |
-| `--sp-2` (`0.5rem`) | `--sp-2` | `--sp-2` (via base) | — (hardcoded) |
-| `--sp-3` (`0.75rem`) | `--sp-3` | `--sp-3` (via base) | — (hardcoded) |
-| `--sp-4` (`1rem`) | `--sp-4` | `--sp-4` (via base) | — (hardcoded) |
-| `--sp-6` (`1.5rem`) | `--sp-6` | `--sp-6` (via base) | — (hardcoded) |
+| `--sp-1` (`0.25rem`) | `--sp-1` | `--sp-1` (via base) | `--sp-1` (via base + admin.css) |
+| `--sp-2` (`0.5rem`) | `--sp-2` | `--sp-2` (via base) | `--sp-2` (via base + admin.css) |
+| `--sp-3` (`0.75rem`) | `--sp-3` | `--sp-3` (via base) | `--sp-3` (via base + admin.css) |
+| `--sp-4` (`1rem`) | `--sp-4` | `--sp-4` (via base) | `--sp-4` (via base + admin.css) |
+| `--sp-6` (`1.5rem`) | `--sp-6` | `--sp-6` (via base) | `--sp-6` (via base + admin.css) |
 
 ---
 
@@ -122,25 +93,20 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` (via base) | — (no fixed header) |
+| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` (via base) | — (uses sidebar layout) |
 | `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` (via base) | — (no status bar) |
-| `--panel-pad` (`1rem`) | `--panel-pad` | `--panel-pad` (via base) | — |
-| `--radius-sm` (`4px`) | `--radius-sm` | `--radius-sm` (via base) | — (uses `10px`) |
-| `--radius-md` (`8px`) | `--radius-md` | `--radius-md` (via base) | — (uses `12-16px`) |
-| `--radius-lg` (`12px`) | `--radius-lg` | `--radius-lg` (via base) | — (uses `18-20px`) |
-| — | — | — | `--layout-max` (`1600px`) |
-| — | — | — | `--layout-pad` (`32px`) |
+| `--panel-pad` (`1rem`) | `--panel-pad` | `--panel-pad` (via base) | `--panel-pad` (via base) |
+| `--radius-sm` (`4px`) | `--radius-sm` | `--radius-sm` (via base) | `--radius-sm` (via base + admin.css) |
+| `--radius-md` (`8px`) | `--radius-md` | `--radius-md` (via base) | `--radius-md` (via base + admin.css) |
+| `--radius-lg` (`12px`) | `--radius-lg` | `--radius-lg` (via base) | `--radius-lg` (via base + admin.css) |
 
-### MUD Server Admin — Layout Differences
+### MUD Server Admin — Layout Notes
 
-| Aspect | Admin Current | App Tools Standard |
-|---|---|---|
-| Shell pattern | Sidebar (280px) + content | Header + status bar |
-| Border radius | 10–20px (rounded, SaaS-style) | 4–12px (tight, industrial) |
-| Card padding | 1.5–2.75rem (spacious) | 0.75–0.85rem (compact) |
-| Max content width | `1600px` | None (fills container) |
-| Default theme | Light | Dark |
-| Theme toggle | `html[data-theme="dark"]` | `html[data-theme="light"]` |
+The admin uses a **sidebar (220px) + content grid** pattern rather than the
+header + status bar shell used by the Axis Descriptor Lab and Name Generator.
+This is intentional — a sidebar is more appropriate for a multi-page management
+dashboard. The layout is defined entirely in `admin.css` and uses base tokens
+for all colours, spacing, radii, and typography. Default theme is dark.
 
 ---
 
@@ -148,8 +114,8 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--transition-fast` (`100ms ease`) | `--transition-fast` | `--transition-fast` (via base) | — (hardcoded `0.15s ease`) |
-| `--transition-med` (`200ms ease`) | `--transition-med` | `--transition-med` (via base) | — (hardcoded `0.2s ease`) |
+| `--transition-fast` (`100ms ease`) | `--transition-fast` | `--transition-fast` (via base) | `--transition-fast` (via base) |
+| `--transition-med` (`200ms ease`) | `--transition-med` | `--transition-med` (via base) | `--transition-med` (via base) |
 
 ---
 
@@ -157,19 +123,22 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `.btn` | `.btn` | `.btn` | — (no button class system) |
-| `.btn--primary` | `.btn--primary` | `.btn--primary` | `.form button`, `.detail-form button` |
-| `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.actions button`, `.character-actions button` |
-| `.btn--ghost` | `.btn--ghost` | — | `.theme-toggle`, `.logout` |
-| `.btn--sm` | `.btn--sm` | `.btn--sm` | — |
+| `.btn` | `.btn` | `.btn` | `.btn` |
+| `.btn--primary` | `.btn--primary` | `.btn--primary` | `.btn--primary` (submit buttons) |
+| `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.btn--secondary` (actions, refresh) |
+| `.btn--ghost` | `.btn--ghost` | — | — |
+| `.btn--sm` | `.btn--sm` | `.btn--sm` | `.btn--sm` (kick, tombstone, delete) |
+| `.btn--full` | — | — | `.btn--full` (login submit) |
 | `.btn--icon` | — | `.btn--icon` | — |
-| `.input` | `.input` | `.input` | `.form input`, `.detail-form input` |
-| `.select` | `.select` | `.select` | `.detail-form select` |
+| `.input` | `.input` | `.input` | `.input` |
+| `.select` | `.select` | `.select` | `.select` |
 | `.range-input` | — | `.range-input` | — |
 | `.code-editor` | `.code-editor` | — | — |
-| `.badge` | `.badge` | — | `.status-pill` |
-| `.badge--active` | `.badge--active` | — | `.status-pill.is-online` |
-| `.card` | — | `.card` (help entries) | `.card`, `.detail-card`, `.kpi-card` |
+| `.badge` | `.badge` | — | `.badge` |
+| `.badge--active` | `.badge--active` | — | `.badge--active` (online status) |
+| `.badge--muted` | — | — | `.badge--muted` (offline status) |
+| `.card` | — | `.card` (help entries) | `.card` (table cards, dashboard) |
+| `.u-muted` | — | — | `.u-muted` (replaced `.muted`) |
 | `.modal` | — | `.modal` | — |
 | `.modal__backdrop` | — | `.modal-backdrop` (hyphenated) | — |
 | `.modal__card` | — | `.modal-card` (hyphenated) | — |
@@ -177,6 +146,7 @@ The admin shell uses **no font tokens** and no monospace font:
 | `.divider` | `.divider` | `.divider` | — |
 | `.hidden` | `.hidden` | — | — |
 | `.u-sr-only` | `.u-sr-only` (via base) | — | — |
+| — | — | — | `.auth-panel` (login/loading states) |
 | — | — | — | `.tag` (pill-shaped chip) |
 | — | — | — | `.toast`, `.toast-container` |
 | — | — | `.tab`, `.tab.active` | `.tab-button`, `.tab-button.is-active` |
@@ -206,19 +176,14 @@ Admin uses a completely different palette (see Colour Value Differences above).
 
 ---
 
-## MUD Server Admin — Alignment Summary
+## Migration Complete
 
-The admin shell requires the most significant migration of any app-mode project.
-The full alignment plan is documented in `MIGRATION_NOTES.md`, section 3.
+All three app-mode projects now import `pipe-works-base.css` directly and share
+identical design tokens, component classes, and font stacks. The Light Theme
+Values table above represents the single source of truth for all projects.
 
-**High-level changes needed:**
-
-1. **Token rename:** `--color-*` -> `--col-*` (prefix change)
-2. **Palette swap:** Blue accent -> amber, cool greys -> warm greys
-3. **Default theme flip:** Light -> dark (with light as toggle)
-4. **Typography overhaul:** Drop "Sora", adopt monospace-dominant `--font-mono`
-5. **Radius tightening:** 10–20px -> 4–12px
-6. **Spacing compaction:** Reduce card/panel padding to match app tools density
-7. **Layout reconsideration:** Sidebar layout may stay (appropriate for admin) but
-   needs to use base CSS tokens and component classes
-8. **Component class adoption:** Replace raw selectors with `.btn`, `.input`, `.card`, etc.
+| Project | PR | CSS Files | Approach |
+|---|---|---|---|
+| Axis Descriptor Lab | [#37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37) | `styles.css` (app-specific) | Removed ~650 duplicate lines |
+| Name Generator | [#86](https://github.com/pipe-works/pipeworks_name_generation/pull/86) | `app.css` (app-specific) | Removed ~290 duplicate lines |
+| MUD Server Admin | [#132](https://github.com/pipe-works/pipeworks_mud_server/pull/132) | `admin.css` (consolidated) | Deleted 6 files, rewrote 1 |

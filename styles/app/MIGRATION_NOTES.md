@@ -149,121 +149,84 @@ their current CSS to the unified `pipe-works-base.css` + `pipe-works-fonts.css`.
 
 ### 3. MUD Server Admin (`pipeworks_mud_server`)
 
-**Status:** Not started — needs full aesthetic alignment.
+**Status:** Migrated (PR [#132](https://github.com/pipe-works/pipeworks_mud_server/pull/132))
 **Effort:** High
 **Scope:** Admin shell only — the play UI is separate and excluded.
 
-The MUD server admin shell currently uses a SaaS-style design (blue accent,
-light-default, rounded corners, Sora font) that diverges significantly from the
-Pipe-Works app tools aesthetic. This section documents the full alignment plan.
+**What was done:**
 
-#### Current CSS Architecture
+1. Copied `pipe-works-fonts.css`, `pipe-works-base.css`, and 16 woff2 font files
+   into `src/mud_server/web/static/` (fonts in `static/fonts/`)
+2. Adjusted font paths in `pipe-works-fonts.css` from `/static/fonts/` to
+   `/web/static/fonts/` to match the FastAPI `StaticFiles` mount path
+3. Added `<link>` tags for fonts and base CSS before `admin.css` in the Jinja2
+   template (`admin_shell.html`), replacing 7 CSS file references with 3
+4. Deleted 6 CSS files now fully covered by base + consolidated admin.css:
+   `base.css` (reset), `themes.css` (tokens), `layout.css` (shell grid),
+   `components.css` (cards, panels, detail views, tags, status pills, schema),
+   `forms.css` (inputs, labels, buttons), `toasts.css` (notifications)
+5. Rewrote `admin.css` as a single consolidated file (~660 lines) layering
+   admin-specific rules on top of the base: sidebar layout, table enhancements,
+   users/dashboard split layouts, detail views, tabs, schema visualisation,
+   toast notifications, and responsive breakpoints
+6. Migrated all `--color-*` tokens to `--col-*` namespace throughout admin.css
+7. Removed "Sora" font dependency — all typography now via base CSS `--font-mono`
+   and `--font-ui`
+8. Flipped default theme to dark: removed `data-theme="light"` from `<html>` tag,
+   updated `theme.js` to default to dark (`|| 'dark'`)
+9. Removed all `box-shadow` declarations (no shadows in org-wide app tools style)
+10. Tightened all border-radius values from 10–20px to 4–12px using base tokens
+11. Replaced hardcoded `rgba()` values with `color-mix()` for theme-adaptive
+    transparency (e.g., table row highlights use
+    `color-mix(in srgb, var(--col-accent) N%, transparent)`)
+12. Updated all 15 JS page modules for component class adoption:
+    - Added `class="btn btn--primary"` on submit buttons
+    - Added `class="btn btn--secondary"` on action/refresh buttons
+    - Added `class="btn btn--secondary btn--sm"` on kick/tombstone/delete buttons
+    - Added `class="input"` on all text, password, and search inputs
+    - Added `class="select"` on all select elements
+    - Renamed `.panel` → `.auth-panel` to avoid collision with base `.panel`
+    - Replaced `.muted` → `.u-muted` (base utility)
+    - Replaced `.status-pill .is-online/.is-offline` → `.badge .badge--active/.badge--muted`
+13. Added explicit `.select option` rule to force readable text colours in dark
+    mode (browsers often ignore inherited `color` on native `<option>` elements)
+14. Bumped `ADMIN_ASSET_VERSION` for cache bust
 
-The admin loads 7 CSS files in this order:
+**Result:** 6 CSS files deleted, `admin.css` consolidated from ~734 combined
+lines (across 7 files) to ~660 lines (single file). All 849 tests pass at
+93.72% coverage. Verified in Chrome and Safari, both light and dark themes.
 
-```
-base.css       — Reset, root font, layout max-width
-themes.css     — --color-* tokens (light default, dark override)
-layout.css     — App shell: sidebar + content grid, header, navigation
-components.css — Cards, panels, detail views, tags, status pills, schema
-forms.css      — Form inputs, labels, buttons, error states
-admin.css      — Admin-specific: tables, users split, dashboard, tabs
-toasts.css     — Toast notification system
-```
+**Lessons for other migrations:**
 
-#### Phase 1: Token Migration
-
-Rename all `--color-*` variables to `--col-*` and swap palette values.
-
-| Current (`themes.css`) | New (from `pipe-works-base.css`) |
-|---|---|
-| `--color-bg: #e9edf4` | `--col-bg: #f4f1ec` (light) / `#111214` (dark) |
-| `--color-bg-alt: #f5f7fb` | Map to `--col-surface` or `--col-surface-2` |
-| `--color-surface: #ffffff` | `--col-surface: #faf8f5` (light) / `#1c1e22` (dark) |
-| `--color-surface-raised: #ffffff` | `--col-surface-2: #efece6` (light) / `#24272d` (dark) |
-| `--color-sidebar: #eef3f9` | Map to `--col-surface` |
-| `--color-text: #121418` | `--col-text: #2c2a26` (light) / `#d4d7dc` (dark) |
-| `--color-muted: #5a6372` | `--col-text-muted: #7a7568` (light) / `#6b7280` (dark) |
-| `--color-border: #d6dbe3` | `--col-border: #d6d0c6` (light) / `#2e3138` (dark) |
-| `--color-accent: #2563eb` | `--col-accent: #c27b0a` (light) / `#f59e0b` (dark) |
-| `--color-danger: #c0392b` | `--col-err: #dc2626` (light) / `#ef4444` (dark) |
-| `--color-success: #1d7a3a` | `--col-ok: #16a34a` (light) / `#22c55e` (dark) |
-| `--shadow-soft` | Remove or reduce (app tools use minimal shadows) |
-
-**Important:** Flip the default theme. Currently `themes.css` defines light as
-default with `html[data-theme="dark"]` as override. The base CSS uses dark as
-default with `[data-theme="light"]` as override.
-
-#### Phase 2: Typography Alignment
-
-1. Remove "Sora" font dependency
-2. Import `pipe-works-fonts.css`
-3. Apply `--font-mono` to headings, buttons, inputs, tables, code (per base CSS)
-4. Apply `--font-ui` to body text and descriptions
-5. Reduce base font size from `16px` to `0.875rem` (14px)
-
-#### Phase 3: Geometry Alignment
-
-| Property | Current | Target |
-|----------|---------|--------|
-| Card border-radius | 16–20px | 8–12px (`--radius-md`, `--radius-lg`) |
-| Button border-radius | 10px | 4px (`--radius-sm`) |
-| Input border-radius | 10px | 4px (`--radius-sm`) |
-| Card padding | 1.5–2.75rem | 0.75–0.85rem |
-| Tab buttons | 999px (pill) | 4px (`--radius-sm`) |
-| Status pill | 999px (pill) | 3px (badge style) |
-
-#### Phase 4: Component Class Adoption
-
-Replace project-specific component patterns with base CSS classes:
-
-| Current Class | Replace With |
-|---|---|
-| `.actions button` | `.btn .btn--secondary` |
-| `.form button`, `.detail-form button` | `.btn .btn--primary` |
-| `.theme-toggle`, `.logout` | `.btn .btn--ghost` |
-| `.character-actions button` | `.btn .btn--secondary .btn--sm` |
-| `.form input`, `.detail-form input` | `.input` |
-| `.detail-form select` | `.select` |
-| `.card` | `.card` (adjust padding/radius) |
-| `.detail-card` | `.card .card--compact` |
-| `.kpi-card` | `.card .card--compact` |
-| `.status-pill` | `.badge` variants |
-| `.tab-button` | `.tab` (from base, or define) |
-| `.toast` | Keep as-is (unique component) |
-
-#### Phase 5: Layout Decisions
-
-The admin's **sidebar layout** is appropriate for a management dashboard and
-doesn't need to change to a header-based shell. However:
-
-1. Adopt base CSS tokens for all colours, spacing, and typography
-2. Consider using `--header-h` for the sticky header height
-3. Use base CSS scrollbar styles
-4. Apply `.panel` styling conventions to sidebar
-
-#### Admin-Specific CSS After Migration
-
-After alignment, the admin's CSS files should consolidate to:
-
-```html
-<!-- Shared -->
-<link rel="stylesheet" href="pipe-works-fonts.css">
-<link rel="stylesheet" href="pipe-works-base.css">
-
-<!-- Admin-specific (what remains) -->
-<link rel="stylesheet" href="admin.css">
-```
-
-The admin-specific CSS should only contain:
-
-- Sidebar layout (unique to admin)
-- Table enhancements (sortable, selectable rows, zebra striping)
-- Users/dashboard split layouts
-- Schema visualisation
-- Toast notifications
-- Character creation panels
-- Any admin-only component patterns
+- **FastAPI `StaticFiles` mount path:** The admin serves static files at
+  `/web/static/` (not `/static/`). Font paths in `pipe-works-fonts.css` needed
+  adjustment to match. Always verify the actual URL prefix used by the server's
+  static file mount.
+- **`.panel` collision (variant):** The admin used `.panel` for login loading
+  states (centred box with max-width) which collides with the base CSS `.panel`
+  (flex layout with gap). Resolved by renaming to `.auth-panel`. The name
+  generator took the override approach instead — either strategy works, but
+  renaming is cleaner when the semantic purpose genuinely differs.
+- **Native `<option>` dark-mode readability:** Browsers (especially macOS
+  WebKit/Blink) often ignore CSS `color` on `<option>` elements inside
+  `<select>`, falling back to system defaults. In dark mode this means dark
+  text on a dark background. Fix with an explicit `.select option` rule setting
+  both `background` and `color`. This was not encountered in previous migrations
+  because the Axis Descriptor Lab and Name Generator don't have `<select>`
+  elements in dark-themed contexts.
+- **`replace_all` with template strings:** When using `replace_all` to add
+  classes in JS template literals, watch for indentation differences across
+  render paths (e.g., error/loading/success states may indent the same element
+  differently). Verify all instances were caught.
+- **No route registration needed:** Unlike the Name Generator (which requires
+  explicit route entries for new static files), FastAPI's `StaticFiles` mount
+  serves any file placed in the static directory automatically. No code changes
+  needed for the server to serve the new CSS and font files.
+- **Theme toggle button styling:** Used `btn btn--secondary` for the theme
+  toggle and logout buttons in the app shell header, giving them visible borders
+  that work in both themes. The Axis Descriptor Lab and Name Generator used
+  `btn btn--ghost` and `btn btn--icon` respectively — the right variant depends
+  on whether the button sits inside a card or in a chrome/header area.
 
 ---
 
@@ -307,6 +270,9 @@ When migrating any project, check for these potential issues:
   *Axis Descriptor Lab: already dark-default.*
   *Name Generator: already dark-default. Changed `document.body.dataset.theme`
   to `document.documentElement.dataset.theme` (2 lines in app.js).*
+  *MUD Server Admin: flipped from light-default to dark-default. Removed
+  `data-theme="light"` from `<html>` tag. Updated `theme.js` to default to
+  dark (`|| 'dark'`). All light-theme overrides now handled by base CSS.*
 
 - [x] **Light theme selector** — Base CSS uses `[data-theme="light"]` on `<html>`.
   The name generator used `body[data-theme="light"]`. The MUD server admin uses
@@ -315,17 +281,22 @@ When migrating any project, check for these potential issues:
   *Axis Descriptor Lab: already uses `html[data-theme="light"]`.*
   *Name Generator: migrated from `body` to `html`. All light-theme overrides
   removed from app.css (handled by base CSS).*
+  *MUD Server Admin: migrated from `html[data-theme="dark"]` override to
+  dark-as-default with `html[data-theme="light"]` for light mode.*
 
 - [x] **Reset aggressiveness** — Base CSS zeroes all margins and padding on
   `*, *::before, *::after`. If your app relies on default browser margins for
   `<p>`, `<h1>`, `<ul>`, etc., add explicit margins.
   *Axis Descriptor Lab: already had identical reset.*
   *Name Generator: already had identical reset.*
+  *MUD Server Admin: previous `base.css` had similar reset — no impact.*
 
 - [x] **List style** — Base CSS sets `list-style: none` on `<ul>` and `<ol>`.
   Add `list-style: disc` (or `square`) explicitly where needed.
   *Axis Descriptor Lab: no lists in the SPA.*
   *Name Generator: added `list-style: disc` to `.help-entry ul`.*
+  *MUD Server Admin: schema relations use `<ul>` with custom styling — no
+  change needed (already styled with `.schema-relations`).*
 
 - [x] **Button reset** — Base CSS resets `<button>` to `background: none;
   border: 0; padding: 0`. All buttons must use `.btn` classes for styling.
@@ -335,31 +306,47 @@ When migrating any project, check for these potential issues:
   HTML and 2 dynamically-created buttons in JS. Important: always pair `.btn`
   with a variant (`--primary`, `--secondary`, `--ghost`, `--icon`) — without
   a variant, buttons are invisible after reset.*
+  *MUD Server Admin: added `.btn` + variant classes to all buttons across 15
+  JS page modules. Submit buttons use `btn--primary`, action/refresh buttons
+  use `btn--secondary`, inline table actions use `btn--secondary btn--sm`.*
 
-- [ ] **Accent colour** — Projects using blue accent (`#2563eb`) must switch to
+- [x] **Accent colour** — Projects using blue accent (`#2563eb`) must switch to
   amber (`#f59e0b` dark / `#c27b0a` light). Search for hardcoded blue values
   in both CSS and JavaScript (e.g., `rgba(37, 99, 235, ...)` in the MUD admin).
+  *Axis Descriptor Lab: already amber.*
+  *Name Generator: already amber.*
+  *MUD Server Admin: migrated from blue to amber. All hardcoded blue values
+  removed. Nav active state uses `--col-accent` fill + `--col-button-text` text.
+  Table row highlights use `color-mix(in srgb, var(--col-accent) N%, transparent)`.*
 
-- [ ] **Shadow removal** — The app tools aesthetic uses minimal shadows. Projects
+- [x] **Shadow removal** — The app tools aesthetic uses minimal shadows. Projects
   with `box-shadow: var(--shadow-soft)` on every card should remove or reduce
   shadows to match.
+  *Axis Descriptor Lab: no shadows used.*
+  *Name Generator: no shadows used.*
+  *MUD Server Admin: all `box-shadow` declarations removed from admin.css.
+  `--shadow-soft` token eliminated.*
 
 - [x] **`color-mix()` support** — Used for transparent borders. Requires
   Chrome 111+, Firefox 113+, Safari 16.2+. All current browsers support it.
   *Axis Descriptor Lab: adopted `color-mix()` for meta-table, meta-copy-btn,
   and tmap-indicator borders.*
   *Name Generator: already used `color-mix()` — no issues.*
+  *MUD Server Admin: adopted `color-mix()` for table row highlights, nav
+  active glow, and semi-transparent borders throughout admin.css.*
 
 - [x] **`.divider` margin** — Base CSS adds `margin: var(--sp-3) 0` to
   `.divider`. Projects with tighter spacing may need to override.
   *Axis Descriptor Lab: no impact — dividers are inside flex panels that
   control spacing via `gap`.*
   *Name Generator: renamed `.section-divider` to `.divider`. No spacing issues.*
+  *MUD Server Admin: no dividers used — no impact.*
 
 - [x] **Spinner keyframe name** — Base CSS uses `@keyframes pw-spin` instead
   of `spin`. Search for JS references to the animation name.
   *Axis Descriptor Lab: no JS references found.*
   *Name Generator: no spinner usage — no impact.*
+  *MUD Server Admin: no spinner usage — no impact.*
 
 - [x] **`position: fixed` shell components** — Base CSS `.app-header` and
   `.status-bar` use `flex-shrink: 0` (for flex-parent layouts). Projects
@@ -368,6 +355,8 @@ When migrating any project, check for these potential issues:
   *Name Generator: uses flex layout — no override needed. Added
   `body { display: flex; flex-direction: column; overflow: hidden; }` as
   the base CSS body doesn't include this.*
+  *MUD Server Admin: uses sidebar + content grid layout (not app-header/
+  status-bar pattern) — no impact. Shell layout defined entirely in admin.css.*
 
 - [x] **`.panel` naming collision** — Base CSS `.panel` provides background,
   padding, flex layout, and gap. Projects that use `.panel` for tab content
@@ -376,12 +365,16 @@ When migrating any project, check for these potential issues:
   *Axis Descriptor Lab: no `.panel` usage.*
   *Name Generator: added override:
   `.panel { display: none; background: transparent; padding: 0; }`*
+  *MUD Server Admin: renamed `.panel` to `.auth-panel` since the admin used
+  `.panel` for login/loading states (centred box with max-width) which has
+  a different semantic purpose. Renaming avoids the collision entirely.*
 
 - [x] **Range input class selector** — Base CSS uses `.range-input` (class),
   not `input[type="range"]` (attribute). Range inputs without the class get
   no styling.
   *Axis Descriptor Lab: no range inputs.*
   *Name Generator: added `class="range-input"` to both range inputs.*
+  *MUD Server Admin: no range inputs — no impact.*
 
 - [x] **Explicit route registration for new CSS files** — Projects with
   manual HTTP route dispatch (not a catch-all static directory) need route
@@ -391,6 +384,18 @@ When migrating any project, check for these potential issues:
   *Axis Descriptor Lab: uses Jinja2 + standard static mounting — no issue.*
   *Name Generator: required additions to `route_registry.py`,
   `endpoint_adapters.py`, and `assets.py`.*
+  *MUD Server Admin: FastAPI `StaticFiles` mount serves any file in the
+  static directory automatically — no code changes needed.*
+
+- [x] **Native `<option>` dark-mode readability** — Browsers (macOS WebKit/
+  Blink) often ignore CSS `color` on `<option>` elements inside `<select>`,
+  falling back to system defaults (dark text on dark background). Add an
+  explicit rule: `.select option { background: var(--col-surface-2); color:
+  var(--col-text); }`.
+  *Axis Descriptor Lab: no `<select>` elements — no impact.*
+  *Name Generator: no `<select>` elements in dark-themed contexts — no impact.*
+  *MUD Server Admin: discovered on axis-state character dropdown. Fixed with
+  explicit `.select option` rule in admin.css.*
 
 ---
 
@@ -458,4 +463,4 @@ one component at a time.
 |---------|--------|----------|--------|
 | Axis Descriptor Lab | Low | 1st | **Done** — [PR #37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37) |
 | Name Generator | Medium | 2nd | **Done** — [PR #86](https://github.com/pipe-works/pipeworks_name_generation/pull/86) |
-| MUD Server Admin | High | 3rd | Not started |
+| MUD Server Admin | High | 3rd | **Done** — [PR #132](https://github.com/pipe-works/pipeworks_mud_server/pull/132) |
