@@ -10,7 +10,7 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 | Project | Status | Notes |
 |---|---|---|
 | Axis Descriptor Lab | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
-| Name Generator | Not started | Requires variable rename + class migration. |
+| Name Generator | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 | MUD Server Admin | Not started | Full aesthetic alignment needed. |
 
 ---
@@ -19,26 +19,26 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--col-bg` | `--col-bg` | `--bg` | `--color-bg` |
-| `--col-surface` | `--col-surface` | `--bg-soft` / `--panel` | `--color-surface` |
-| `--col-surface-2` | `--col-surface-2` | `--panel-2` | `--color-surface-raised` |
-| `--col-border` | `--col-border` | `--border` | `--color-border` |
-| `--col-border-hi` | `--col-border-hi` | `--border-hi` | — (not defined) |
-| `--col-text` | `--col-text` | `--text` | `--color-text` |
-| `--col-text-muted` | `--col-text-muted` | `--muted` | `--color-muted` |
-| `--col-text-dim` | `--col-text-dim` | `--text-dim` | — |
-| `--col-accent` | `--col-accent` | `--accent` | `--color-accent` |
-| `--col-accent-dim` | `--col-accent-dim` | `--accent-2` | — |
-| `--col-accent-glow` | `--col-accent-glow` | `--accent-glow` | — |
-| `--col-ok` | `--col-ok` | `--ok` | `--color-success` |
-| `--col-err` | `--col-err` | `--err` | `--color-danger` |
+| `--col-bg` | `--col-bg` | `--col-bg` | `--color-bg` |
+| `--col-surface` | `--col-surface` | `--col-surface` | `--color-surface` |
+| `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--color-surface-raised` |
+| `--col-border` | `--col-border` | `--col-border` | `--color-border` |
+| `--col-border-hi` | `--col-border-hi` | `--col-border-hi` | — (not defined) |
+| `--col-text` | `--col-text` | `--col-text` | `--color-text` |
+| `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--color-muted` |
+| `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | — |
+| `--col-accent` | `--col-accent` | `--col-accent` | `--color-accent` |
+| `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` | — |
+| `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | — |
+| `--col-ok` | `--col-ok` | `--col-ok` | `--color-success` |
+| `--col-err` | `--col-err` | `--col-err` | `--color-danger` |
 | `--col-warn` | `--col-warn` | — | — |
 | `--col-info` | `--col-info` | — | — |
-| `--col-code-bg` | `--col-code-bg` | `--code-bg` | — |
-| `--col-code-text` | `--col-code-text` | `--code-text` | — |
-| `--col-code-inline` | `--col-code-inline` | `--code-inline-text` | — |
-| `--col-button-text` | `--col-button-text` | `--button-text` | — (hardcoded `#fff`) |
-| `--col-backdrop` | `--col-backdrop` | — (hardcoded) | — |
+| `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | — |
+| `--col-code-text` | `--col-code-text` | `--col-code-text` | — |
+| `--col-code-inline` | `--col-code-inline` | `--col-code-inline` | — |
+| `--col-button-text` | `--col-button-text` | `--col-button-text` | — (hardcoded `#fff`) |
+| `--col-backdrop` | `--col-backdrop` | `--col-backdrop` | — |
 | `--col-tooltip-bg` | `--col-tooltip-bg` | — | — |
 | `--col-tooltip-text` | `--col-tooltip-text` | — | — |
 | `--col-tooltip-border` | `--col-tooltip-border` | — | — |
@@ -69,14 +69,15 @@ standard. These values will need to change during alignment:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--font-mono` | `--font-mono` | `--font-mono` | — (not defined) |
-| `--font-ui` | `--font-ui` | `--font-ui` | — (uses `"Sora"` directly on `:root`) |
-| `--font-masthead` | `--font-masthead` (via base) | — | — |
-| `--font-headline` | `--font-headline` (via base) | — | — |
-| `--font-body` | `--font-body` (via base) | — | — |
-| `--font-record` | `--font-record` (via base) | — | — |
-| `--font-symbols` | `--font-symbols` (via base) | — | — |
-| `--font-accent` | `--font-accent` (via base) | — | — |
+| `--font-mono` | `--font-mono` | `--font-mono` (via base) | — (not defined) |
+| `--font-ui` | `--font-ui` | `--font-ui` (via base) | — (uses `"Sora"` directly on `:root`) |
+| `--font-heading` | `--font-heading` (via base) | `--font-heading` (via base) | — |
+| `--font-body` | `--font-body` (via base) | `--font-body` (via base) | — |
+| `--font-masthead` | `--font-masthead` (via base) | `--font-masthead` (via base) | — |
+| `--font-headline` | `--font-headline` (via base) | `--font-headline` (via base) | — |
+| `--font-record` | `--font-record` (via base) | `--font-record` (via base) | — |
+| `--font-symbols` | `--font-symbols` (via base) | `--font-symbols` (via base) | — |
+| `--font-accent` | `--font-accent` (via base) | `--font-accent` (via base) | — |
 
 ### MUD Server Admin — Typography Differences
 
@@ -97,11 +98,11 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--text-xs` (`0.70rem`) | `--text-xs` | — (hardcoded) | — (hardcoded various) |
-| `--text-sm` (`0.80rem`) | `--text-sm` | — (hardcoded) | — |
-| `--text-base` (`0.875rem`) | `--text-base` | — (hardcoded) | — (`16px` on `:root`) |
-| `--text-lg` (`1.0rem`) | `--text-lg` | — (hardcoded) | — |
-| `--text-xl` (`1.15rem`) | `--text-xl` | — (hardcoded) | — |
+| `--text-xs` (`0.70rem`) | `--text-xs` | `--text-xs` (via base) | — (hardcoded various) |
+| `--text-sm` (`0.80rem`) | `--text-sm` | `--text-sm` (via base) | — |
+| `--text-base` (`0.875rem`) | `--text-base` | `--text-base` (via base) | — (`16px` on `:root`) |
+| `--text-lg` (`1.0rem`) | `--text-lg` | `--text-lg` (via base) | — |
+| `--text-xl` (`1.15rem`) | `--text-xl` | `--text-xl` (via base) | — |
 
 ---
 
@@ -109,11 +110,11 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--sp-1` (`0.25rem`) | `--sp-1` | — (hardcoded) | — (hardcoded) |
-| `--sp-2` (`0.5rem`) | `--sp-2` | — (hardcoded) | — (hardcoded) |
-| `--sp-3` (`0.75rem`) | `--sp-3` | — (hardcoded) | — (hardcoded) |
-| `--sp-4` (`1rem`) | `--sp-4` | — (hardcoded) | — (hardcoded) |
-| `--sp-6` (`1.5rem`) | `--sp-6` | — (hardcoded) | — (hardcoded) |
+| `--sp-1` (`0.25rem`) | `--sp-1` | `--sp-1` (via base) | — (hardcoded) |
+| `--sp-2` (`0.5rem`) | `--sp-2` | `--sp-2` (via base) | — (hardcoded) |
+| `--sp-3` (`0.75rem`) | `--sp-3` | `--sp-3` (via base) | — (hardcoded) |
+| `--sp-4` (`1rem`) | `--sp-4` | `--sp-4` (via base) | — (hardcoded) |
+| `--sp-6` (`1.5rem`) | `--sp-6` | `--sp-6` (via base) | — (hardcoded) |
 
 ---
 
@@ -121,12 +122,12 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` | — (no fixed header) |
-| `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` | — (no status bar) |
-| `--panel-pad` (`1rem`) | `--panel-pad` | — | — |
-| `--radius-sm` (`4px`) | `--radius-sm` | — (hardcoded) | — (uses `10px`) |
-| `--radius-md` (`8px`) | `--radius-md` | — (hardcoded) | — (uses `12-16px`) |
-| `--radius-lg` (`12px`) | `--radius-lg` | — (hardcoded) | — (uses `18-20px`) |
+| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` (via base) | — (no fixed header) |
+| `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` (via base) | — (no status bar) |
+| `--panel-pad` (`1rem`) | `--panel-pad` | `--panel-pad` (via base) | — |
+| `--radius-sm` (`4px`) | `--radius-sm` | `--radius-sm` (via base) | — (uses `10px`) |
+| `--radius-md` (`8px`) | `--radius-md` | `--radius-md` (via base) | — (uses `12-16px`) |
+| `--radius-lg` (`12px`) | `--radius-lg` | `--radius-lg` (via base) | — (uses `18-20px`) |
 | — | — | — | `--layout-max` (`1600px`) |
 | — | — | — | `--layout-pad` (`32px`) |
 
@@ -147,8 +148,8 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `--transition-fast` (`100ms ease`) | `--transition-fast` | — (hardcoded) | — (hardcoded `0.15s ease`) |
-| `--transition-med` (`200ms ease`) | `--transition-med` | — (hardcoded) | — (hardcoded `0.2s ease`) |
+| `--transition-fast` (`100ms ease`) | `--transition-fast` | `--transition-fast` (via base) | — (hardcoded `0.15s ease`) |
+| `--transition-med` (`200ms ease`) | `--transition-med` | `--transition-med` (via base) | — (hardcoded `0.2s ease`) |
 
 ---
 
@@ -156,23 +157,24 @@ The admin shell uses **no font tokens** and no monospace font:
 
 | Base CSS | Axis Descriptor Lab | Name Generator | MUD Server Admin |
 |---|---|---|---|
-| `.btn` | `.btn` | `button` (raw) | — (no button class system) |
-| `.btn--primary` | `.btn--primary` | `button` (default style) | `.form button`, `.detail-form button` |
-| `.btn--secondary` | `.btn--secondary` | — | `.actions button`, `.character-actions button` |
-| `.btn--ghost` | `.btn--ghost` | `.theme-toggle` | `.theme-toggle`, `.logout` |
-| `.btn--sm` | `.btn--sm` | — | — |
-| `.btn--icon` | — | `.icon-btn` | — |
-| `.input` | `.input` | `input` (raw) | `.form input`, `.detail-form input` |
-| `.select` | `.select` | `select` (raw) | `.detail-form select` |
+| `.btn` | `.btn` | `.btn` | — (no button class system) |
+| `.btn--primary` | `.btn--primary` | `.btn--primary` | `.form button`, `.detail-form button` |
+| `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.actions button`, `.character-actions button` |
+| `.btn--ghost` | `.btn--ghost` | — | `.theme-toggle`, `.logout` |
+| `.btn--sm` | `.btn--sm` | `.btn--sm` | — |
+| `.btn--icon` | — | `.btn--icon` | — |
+| `.input` | `.input` | `.input` | `.form input`, `.detail-form input` |
+| `.select` | `.select` | `.select` | `.detail-form select` |
+| `.range-input` | — | `.range-input` | — |
 | `.code-editor` | `.code-editor` | — | — |
 | `.badge` | `.badge` | — | `.status-pill` |
 | `.badge--active` | `.badge--active` | — | `.status-pill.is-online` |
-| `.card` | — | `.db-card`, `.favorites-card` | `.card`, `.detail-card`, `.kpi-card` |
+| `.card` | — | `.card` (help entries) | `.card`, `.detail-card`, `.kpi-card` |
 | `.modal` | — | `.modal` | — |
-| `.modal__backdrop` | — | `.modal-backdrop` | — |
-| `.modal__card` | — | `.modal-card` | — |
+| `.modal__backdrop` | — | `.modal-backdrop` (hyphenated) | — |
+| `.modal__card` | — | `.modal-card` (hyphenated) | — |
 | `.spinner` | `.spinner` | — | — |
-| `.divider` | `.divider` | `.section-divider` | — |
+| `.divider` | `.divider` | `.divider` | — |
 | `.hidden` | `.hidden` | — | — |
 | `.u-sr-only` | `.u-sr-only` (via base) | — | — |
 | — | — | — | `.tag` (pill-shaped chip) |
@@ -183,9 +185,9 @@ The admin shell uses **no font tokens** and no monospace font:
 
 ## Light Theme Values
 
-Axis Descriptor Lab and Name Generator share identical palettes.
-The MUD Server Admin uses a completely different palette (see Colour Value
-Differences above).
+Axis Descriptor Lab and Name Generator both import `pipe-works-base.css`
+directly and share identical palettes via canonical tokens. The MUD Server
+Admin uses a completely different palette (see Colour Value Differences above).
 
 | Token | Dark | Light |
 |---|---|---|

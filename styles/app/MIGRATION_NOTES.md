@@ -70,55 +70,80 @@ their current CSS to the unified `pipe-works-base.css` + `pipe-works-fonts.css`.
 
 ### 2. Name Generator (`pipeworks_name_generation`)
 
-**Status:** Not started — needs variable rename + class migration.
+**Status:** Migrated (PR [#86](https://github.com/pipe-works/pipeworks_name_generation/pull/86))
 **Effort:** Medium
 
-**Steps:**
-1. Replace inline `@font-face` block with `pipe-works-fonts.css` import
-2. Replace `:root` variables with `pipe-works-base.css` import
-3. Rename all CSS variable references (see TOKEN_MAP.md)
-4. Replace raw element selectors with class-based selectors
-5. Update theme toggle JS: set `data-theme` on `<html>` not `<body>`
-6. Keep app-specific styles (generation cards, API builder, favorites,
-   DB browser) in `app.css`
+**What was done:**
 
-**Key renames needed:**
+1. Copied `pipe-works-fonts.css`, `pipe-works-base.css`, and 16 woff2 font files
+   into `pipeworks_name_generation/webapp/frontend/static/`
+2. Added `<link>` tags for fonts and base CSS before `app.css` in the Jinja2-style
+   template (`index.html`)
+3. Registered the two new CSS files in the webapp's explicit route registry
+   (`route_registry.py`, `endpoint_adapters.py`, `assets.py`) — the server uses
+   manual route dispatch, not a static directory mount
+4. Removed ~290 lines from `app.css` now covered by the base: `@font-face` blocks,
+   `:root` dark tokens, `body[data-theme="light"]` light tokens, body/focus-visible
+   base styles, `.app-header`/`.app-main`/`.status-bar` shell styles, raw element
+   selectors (`button`, `input`, `select`, `table`, `th`, `td`, `ul`, `li`, `code`,
+   `h1`), `input[type="checkbox"]`/`input[type="range"]` styling, `.section-divider`,
+   scrollbar styles, and all light-theme overrides
+5. Renamed 67 CSS variable references from unprefixed to canonical `--col-*` tokens
+6. Updated theme toggle JS: `document.body.dataset.theme` →
+   `document.documentElement.dataset.theme` (2 lines in `app.js`)
+7. Added component classes throughout HTML and JS:
+   - `btn btn--primary` on ~30 action buttons
+   - `btn btn--secondary btn--sm` on theme toggle
+   - `btn btn--icon` on toggle/nav/close buttons
+   - `btn btn--primary btn--sm` on copy/fav/export buttons
+   - `class="input"` on text/number inputs and textareas
+   - `class="select"` on all select elements
+   - `class="range-input"` on range inputs
+   - `class="divider"` replacing `.section-divider`
+8. Updated dynamically-created buttons in `favorites.js` with `btn btn--primary`
+9. Refactored help panel entries to use base `.card` component with BEM children
+   (`.help-entry__question`, `.help-entry__answer`) using `--font-heading` and
+   `--font-body` for visual hierarchy
 
-| Current (app.css) | New (base.css) |
-|---|---|
-| `--bg` | `--col-bg` |
-| `--bg-soft` | `--col-surface` |
-| `--panel` | `--col-surface` |
-| `--panel-2` | `--col-surface-2` |
-| `--text` | `--col-text` |
-| `--muted` | `--col-text-muted` |
-| `--border` | `--col-border` |
-| `--border-hi` | `--col-border-hi` |
-| `--text-dim` | `--col-text-dim` |
-| `--accent` | `--col-accent` |
-| `--accent-2` | `--col-accent-dim` |
-| `--accent-glow` | `--col-accent-glow` |
-| `--ok` | `--col-ok` |
-| `--err` | `--col-err` |
-| `--input-bg` | `--col-bg` (or `--col-surface-2`) |
-| `--button-text` | `--col-button-text` |
-| `--code-bg` | `--col-code-bg` |
-| `--code-text` | `--col-code-text` |
-| `--code-inline-text` | `--col-code-inline` |
+**Result:** `app.css` reduced from 1137 to ~850 lines. All 2,405 tests pass.
 
-**Button migration:**
+**Lessons for other migrations:**
 
-| Current | New |
-|---------|-----|
-| `<button>` (raw) | `<button class="btn btn--primary">` |
-| `<button>` ghost style | `<button class="btn btn--secondary">` |
+- **Explicit route registries:** The name generator webapp uses manual HTTP route
+  dispatch (not a catch-all static directory). New CSS files needed route entries,
+  endpoint adapter functions, and content-type whitelist entries in `assets.py`.
+  Any project with explicit route registration will hit this — check how static
+  files are actually served, not just whether the files exist on disk.
+- **Base `.panel` naming collision:** Base CSS `.panel` provides background, padding,
+  flex layout, and gap — but the name generator uses `.panel` purely for tab content
+  show/hide (`display: none`). Fixed by overriding in app.css:
+  `display: none; background: transparent; padding: 0; overflow-y: visible;`
+  Projects reusing `.panel` for non-standard purposes will need similar overrides.
+- **Button variants required for visibility:** After the base button reset
+  (`background: none; border: 0; padding: 0`), buttons without a variant class
+  (e.g., `btn btn--sm` with no `--primary`/`--secondary`) are invisible. Always
+  pair `.btn` with a variant.
+- **Range inputs need `.range-input` class:** Base CSS uses `.range-input` (class
+  selector), not `input[type="range"]` (attribute selector). Range inputs without
+  the class get no styling.
+- **Theme toggle button styling:** `btn btn--ghost` has no border. If the toggle
+  needs a visible border, use `btn btn--secondary btn--sm` instead.
+- **Modal naming:** The name generator uses hyphenated modal classes
+  (`.modal-backdrop`, `.modal-card`) rather than BEM (`.modal__backdrop`,
+  `.modal__card`). This was kept as-is — a future pass could align to BEM.
+- **`var(--col-backdrop)` eliminates light-theme overrides:** The modal backdrop
+  used a hardcoded `rgba()` with a separate light-theme override. Replacing with
+  `var(--col-backdrop)` handles both themes in one rule.
+- **Body flex layout not in base:** Base CSS body doesn't include
+  `display: flex; flex-direction: column; overflow: hidden;` needed for full-height
+  app shells. Add as an app-specific override.
 
-**Input migration:**
+**Deferred items:**
 
-| Current | New |
-|---------|-----|
-| `<input>` (raw) | `<input class="input">` |
-| `<select>` (raw) | `<select class="select">` |
+- State class BEM migration (`.active` → `.is-active`, `.collapsed` →
+  `.is-collapsed`) — low priority, no functional impact
+- Modal BEM alignment (`.modal-backdrop` → `.modal__backdrop`) — kept hyphenated
+  names for now
 
 ---
 
@@ -274,31 +299,42 @@ When migrating any project, check for these potential issues:
   all headings, buttons, inputs, tables, and code. If your app relies on
   inheriting `--font-ui` for these elements, add explicit overrides.
   *Axis Descriptor Lab: no impact — already monospace per-class.*
+  *Name Generator: no impact — already monospace-dominant.*
 
 - [x] **Theme toggle direction** — Base CSS uses dark as default with
   `[data-theme="light"]` on `<html>` as override. Projects that default to light
   (MUD server admin) must flip their theme toggle logic.
   *Axis Descriptor Lab: already dark-default.*
+  *Name Generator: already dark-default. Changed `document.body.dataset.theme`
+  to `document.documentElement.dataset.theme` (2 lines in app.js).*
 
 - [x] **Light theme selector** — Base CSS uses `[data-theme="light"]` on `<html>`.
-  The name generator uses `body[data-theme="light"]`. The MUD server admin uses
+  The name generator used `body[data-theme="light"]`. The MUD server admin uses
   `html[data-theme="dark"]`. All must standardise to `<html>` with light as the
   non-default state.
   *Axis Descriptor Lab: already uses `html[data-theme="light"]`.*
+  *Name Generator: migrated from `body` to `html`. All light-theme overrides
+  removed from app.css (handled by base CSS).*
 
 - [x] **Reset aggressiveness** — Base CSS zeroes all margins and padding on
   `*, *::before, *::after`. If your app relies on default browser margins for
   `<p>`, `<h1>`, `<ul>`, etc., add explicit margins.
   *Axis Descriptor Lab: already had identical reset.*
+  *Name Generator: already had identical reset.*
 
 - [x] **List style** — Base CSS sets `list-style: none` on `<ul>` and `<ol>`.
   Add `list-style: disc` (or `square`) explicitly where needed.
   *Axis Descriptor Lab: no lists in the SPA.*
+  *Name Generator: added `list-style: disc` to `.help-entry ul`.*
 
 - [x] **Button reset** — Base CSS resets `<button>` to `background: none;
   border: 0; padding: 0`. All buttons must use `.btn` classes for styling.
   *Axis Descriptor Lab: all buttons already use `.btn` or custom classes
   (`.theme-toggle`, `.tooltip-toggle`).*
+  *Name Generator: added `.btn` + variant classes to ~30 static buttons in
+  HTML and 2 dynamically-created buttons in JS. Important: always pair `.btn`
+  with a variant (`--primary`, `--secondary`, `--ghost`, `--icon`) — without
+  a variant, buttons are invisible after reset.*
 
 - [ ] **Accent colour** — Projects using blue accent (`#2563eb`) must switch to
   amber (`#f59e0b` dark / `#c27b0a` light). Search for hardcoded blue values
@@ -312,20 +348,49 @@ When migrating any project, check for these potential issues:
   Chrome 111+, Firefox 113+, Safari 16.2+. All current browsers support it.
   *Axis Descriptor Lab: adopted `color-mix()` for meta-table, meta-copy-btn,
   and tmap-indicator borders.*
+  *Name Generator: already used `color-mix()` — no issues.*
 
 - [x] **`.divider` margin** — Base CSS adds `margin: var(--sp-3) 0` to
   `.divider`. Projects with tighter spacing may need to override.
   *Axis Descriptor Lab: no impact — dividers are inside flex panels that
   control spacing via `gap`.*
+  *Name Generator: renamed `.section-divider` to `.divider`. No spacing issues.*
 
 - [x] **Spinner keyframe name** — Base CSS uses `@keyframes pw-spin` instead
   of `spin`. Search for JS references to the animation name.
   *Axis Descriptor Lab: no JS references found.*
+  *Name Generator: no spinner usage — no impact.*
 
 - [x] **`position: fixed` shell components** — Base CSS `.app-header` and
   `.status-bar` use `flex-shrink: 0` (for flex-parent layouts). Projects
   using fixed-position layouts must re-add `position: fixed` and coordinates.
   *Axis Descriptor Lab: added overrides in app-specific CSS.*
+  *Name Generator: uses flex layout — no override needed. Added
+  `body { display: flex; flex-direction: column; overflow: hidden; }` as
+  the base CSS body doesn't include this.*
+
+- [x] **`.panel` naming collision** — Base CSS `.panel` provides background,
+  padding, flex layout, and gap. Projects that use `.panel` for tab content
+  show/hide (where `display: none` is toggled by JS) must override the base
+  styles to neutralise them.
+  *Axis Descriptor Lab: no `.panel` usage.*
+  *Name Generator: added override:
+  `.panel { display: none; background: transparent; padding: 0; }`*
+
+- [x] **Range input class selector** — Base CSS uses `.range-input` (class),
+  not `input[type="range"]` (attribute). Range inputs without the class get
+  no styling.
+  *Axis Descriptor Lab: no range inputs.*
+  *Name Generator: added `class="range-input"` to both range inputs.*
+
+- [x] **Explicit route registration for new CSS files** — Projects with
+  manual HTTP route dispatch (not a catch-all static directory) need route
+  entries, endpoint adapters, and content-type whitelist entries for the new
+  CSS files. Files existing on disk is not enough — verify the server
+  actually serves them.
+  *Axis Descriptor Lab: uses Jinja2 + standard static mounting — no issue.*
+  *Name Generator: required additions to `route_registry.py`,
+  `endpoint_adapters.py`, and `assets.py`.*
 
 ---
 
@@ -392,5 +457,5 @@ one component at a time.
 | Project | Effort | Priority | Status |
 |---------|--------|----------|--------|
 | Axis Descriptor Lab | Low | 1st | **Done** — [PR #37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37) |
-| Name Generator | Medium | 2nd | Not started |
+| Name Generator | Medium | 2nd | **Done** — [PR #86](https://github.com/pipe-works/pipeworks_name_generation/pull/86) |
 | MUD Server Admin | High | 3rd | Not started |
