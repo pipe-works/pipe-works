@@ -11,94 +11,95 @@ Cross-reference of CSS custom property names across all Pipe-Works app-mode proj
 |---|---|---|
 | Axis Descriptor Lab | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 | Name Generator | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
+| Syllable Walk Web | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 | MUD Server Admin | **Migrated** | Imports `pipe-works-base.css` directly. All tokens canonical. |
 
 ---
 
 ## Colour Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--col-bg` | `--col-bg` | `--col-bg` | `--col-bg` (via base) |
-| `--col-surface` | `--col-surface` | `--col-surface` | `--col-surface` (via base) |
-| `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--col-surface-2` (via base) |
-| `--col-border` | `--col-border` | `--col-border` | `--col-border` (via base) |
-| `--col-border-hi` | `--col-border-hi` | `--col-border-hi` | `--col-border-hi` (via base) |
-| `--col-text` | `--col-text` | `--col-text` | `--col-text` (via base) |
-| `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--col-text-muted` (via base) |
-| `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | `--col-text-dim` (via base) |
-| `--col-accent` | `--col-accent` | `--col-accent` | `--col-accent` (via base) |
-| `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` (via base) |
-| `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` (via base) |
-| `--col-ok` | `--col-ok` | `--col-ok` | `--col-ok` (via base) |
-| `--col-err` | `--col-err` | `--col-err` | `--col-err` (via base) |
-| `--col-warn` | `--col-warn` | — | — |
-| `--col-info` | `--col-info` | — | — |
-| `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | `--col-code-bg` (via base) |
-| `--col-code-text` | `--col-code-text` | `--col-code-text` | `--col-code-text` (via base) |
-| `--col-code-inline` | `--col-code-inline` | `--col-code-inline` | — |
-| `--col-button-text` | `--col-button-text` | `--col-button-text` | `--col-button-text` (via base) |
-| `--col-backdrop` | `--col-backdrop` | `--col-backdrop` | — |
-| `--col-tooltip-bg` | `--col-tooltip-bg` | — | — |
-| `--col-tooltip-text` | `--col-tooltip-text` | — | — |
-| `--col-tooltip-border` | `--col-tooltip-border` | — | — |
-| `--col-diff-add` | `--col-diff-add` | — | — |
-| `--col-diff-del` | `--col-diff-del` | — | — |
-| `--col-diff-add-text` | `--col-diff-add-text` | — | — |
-| `--col-diff-del-text` | `--col-diff-del-text` | — | — |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--col-bg` | `--col-bg` | `--col-bg` | `--col-bg` (via base) | `--col-bg` (via base) |
+| `--col-surface` | `--col-surface` | `--col-surface` | `--col-surface` | `--col-surface` (via base) |
+| `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--col-surface-2` | `--col-surface-2` (via base) |
+| `--col-border` | `--col-border` | `--col-border` | `--col-border` | `--col-border` (via base) |
+| `--col-border-hi` | `--col-border-hi` | `--col-border-hi` | `--col-border-hi` (via base) | `--col-border-hi` (via base) |
+| `--col-text` | `--col-text` | `--col-text` | `--col-text` | `--col-text` (via base) |
+| `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--col-text-muted` | `--col-text-muted` (via base) |
+| `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | `--col-text-dim` | `--col-text-dim` (via base) |
+| `--col-accent` | `--col-accent` | `--col-accent` | `--col-accent` | `--col-accent` (via base) |
+| `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` | `--col-accent-dim` (via base) | `--col-accent-dim` (via base) |
+| `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` | `--col-accent-glow` (via base) |
+| `--col-ok` | `--col-ok` | `--col-ok` | `--col-ok` | `--col-ok` (via base) |
+| `--col-err` | `--col-err` | `--col-err` | `--col-err` | `--col-err` (via base) |
+| `--col-warn` | `--col-warn` | — | `--col-warn` | — |
+| `--col-info` | `--col-info` | — | — | — |
+| `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | `--col-code-bg` | `--col-code-bg` (via base) |
+| `--col-code-text` | `--col-code-text` | `--col-code-text` | `--col-code-text` (via base) | `--col-code-text` (via base) |
+| `--col-code-inline` | `--col-code-inline` | `--col-code-inline` | — | — |
+| `--col-button-text` | `--col-button-text` | `--col-button-text` | `--col-button-text` | `--col-button-text` (via base) |
+| `--col-backdrop` | `--col-backdrop` | `--col-backdrop` | `--col-backdrop` (via base) | — |
+| `--col-tooltip-bg` | `--col-tooltip-bg` | — | — | — |
+| `--col-tooltip-text` | `--col-tooltip-text` | — | — | — |
+| `--col-tooltip-border` | `--col-tooltip-border` | — | — | — |
+| `--col-diff-add` | `--col-diff-add` | — | — | — |
+| `--col-diff-del` | `--col-diff-del` | — | — | — |
+| `--col-diff-add-text` | `--col-diff-add-text` | — | — | — |
+| `--col-diff-del-text` | `--col-diff-del-text` | — | — | — |
 
 ---
 
 ## Typography Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--font-mono` | `--font-mono` | `--font-mono` (via base) | `--font-mono` (via base) |
-| `--font-ui` | `--font-ui` | `--font-ui` (via base) | `--font-ui` (via base) |
-| `--font-heading` | `--font-heading` (via base) | `--font-heading` (via base) | `--font-heading` (via base) |
-| `--font-body` | `--font-body` (via base) | `--font-body` (via base) | `--font-body` (via base) |
-| `--font-masthead` | `--font-masthead` (via base) | `--font-masthead` (via base) | `--font-masthead` (via base) |
-| `--font-headline` | `--font-headline` (via base) | `--font-headline` (via base) | `--font-headline` (via base) |
-| `--font-record` | `--font-record` (via base) | `--font-record` (via base) | `--font-record` (via base) |
-| `--font-symbols` | `--font-symbols` (via base) | `--font-symbols` (via base) | `--font-symbols` (via base) |
-| `--font-accent` | `--font-accent` (via base) | `--font-accent` (via base) | `--font-accent` (via base) |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--font-mono` | `--font-mono` | `--font-mono` (via base) | `--font-mono` | `--font-mono` (via base) |
+| `--font-ui` | `--font-ui` | `--font-ui` (via base) | `--font-ui` (via base) | `--font-ui` (via base) |
+| `--font-heading` | `--font-heading` (via base) | `--font-heading` (via base) | `--font-heading` (via base) | `--font-heading` (via base) |
+| `--font-body` | `--font-body` (via base) | `--font-body` (via base) | `--font-body` (via base) | `--font-body` (via base) |
+| `--font-masthead` | `--font-masthead` (via base) | `--font-masthead` (via base) | `--font-masthead` (via base) | `--font-masthead` (via base) |
+| `--font-headline` | `--font-headline` (via base) | `--font-headline` (via base) | `--font-headline` (via base) | `--font-headline` (via base) |
+| `--font-record` | `--font-record` (via base) | `--font-record` (via base) | `--font-record` (via base) | `--font-record` (via base) |
+| `--font-symbols` | `--font-symbols` (via base) | `--font-symbols` (via base) | `--font-symbols` (via base) | `--font-symbols` (via base) |
+| `--font-accent` | `--font-accent` (via base) | `--font-accent` (via base) | `--font-accent` (via base) | `--font-accent` (via base) |
 
 ---
 
 ## Type Scale Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--text-xs` (`0.70rem`) | `--text-xs` | `--text-xs` (via base) | `--text-xs` (via base) |
-| `--text-sm` (`0.80rem`) | `--text-sm` | `--text-sm` (via base) | `--text-sm` (via base) |
-| `--text-base` (`0.875rem`) | `--text-base` | `--text-base` (via base) | `--text-base` (via base) |
-| `--text-lg` (`1.0rem`) | `--text-lg` | `--text-lg` (via base) | `--text-lg` (via base) |
-| `--text-xl` (`1.15rem`) | `--text-xl` | `--text-xl` (via base) | `--text-xl` (via base) |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--text-xs` (`0.70rem`) | `--text-xs` | `--text-xs` (via base) | `--text-xs` | `--text-xs` (via base) |
+| `--text-sm` (`0.80rem`) | `--text-sm` | `--text-sm` (via base) | `--text-sm` | `--text-sm` (via base) |
+| `--text-base` (`0.875rem`) | `--text-base` | `--text-base` (via base) | `--text-base` | `--text-base` (via base) |
+| `--text-lg` (`1.0rem`) | `--text-lg` | `--text-lg` (via base) | `--text-lg` (via base) | `--text-lg` (via base) |
+| `--text-xl` (`1.15rem`) | `--text-xl` | `--text-xl` (via base) | `--text-xl` | `--text-xl` (via base) |
 
 ---
 
 ## Spacing Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--sp-1` (`0.25rem`) | `--sp-1` | `--sp-1` (via base) | `--sp-1` (via base + admin.css) |
-| `--sp-2` (`0.5rem`) | `--sp-2` | `--sp-2` (via base) | `--sp-2` (via base + admin.css) |
-| `--sp-3` (`0.75rem`) | `--sp-3` | `--sp-3` (via base) | `--sp-3` (via base + admin.css) |
-| `--sp-4` (`1rem`) | `--sp-4` | `--sp-4` (via base) | `--sp-4` (via base + admin.css) |
-| `--sp-6` (`1.5rem`) | `--sp-6` | `--sp-6` (via base) | `--sp-6` (via base + admin.css) |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--sp-1` (`0.25rem`) | `--sp-1` | `--sp-1` (via base) | `--sp-1` | `--sp-1` (via base + admin.css) |
+| `--sp-2` (`0.5rem`) | `--sp-2` | `--sp-2` (via base) | `--sp-2` | `--sp-2` (via base + admin.css) |
+| `--sp-3` (`0.75rem`) | `--sp-3` | `--sp-3` (via base) | `--sp-3` | `--sp-3` (via base + admin.css) |
+| `--sp-4` (`1rem`) | `--sp-4` | `--sp-4` (via base) | `--sp-4` | `--sp-4` (via base + admin.css) |
+| `--sp-6` (`1.5rem`) | `--sp-6` | `--sp-6` (via base) | `--sp-6` (via base) | `--sp-6` (via base + admin.css) |
 
 ---
 
 ## Layout Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` (via base) | — (uses sidebar layout) |
-| `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` (via base) | — (no status bar) |
-| `--panel-pad` (`1rem`) | `--panel-pad` | `--panel-pad` (via base) | `--panel-pad` (via base) |
-| `--radius-sm` (`4px`) | `--radius-sm` | `--radius-sm` (via base) | `--radius-sm` (via base + admin.css) |
-| `--radius-md` (`8px`) | `--radius-md` | `--radius-md` (via base) | `--radius-md` (via base + admin.css) |
-| `--radius-lg` (`12px`) | `--radius-lg` | `--radius-lg` (via base) | `--radius-lg` (via base + admin.css) |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--header-h` (`2.75rem`) | `--header-h` | `--header-h` (via base) | `--header-h` (overridden to `auto`) | — (uses sidebar layout) |
+| `--statusbar-h` (`1.75rem`) | `--statusbar-h` | `--statusbar-h` (via base) | `--statusbar-h` (via base) | — (no status bar) |
+| `--panel-pad` (`1rem`) | `--panel-pad` | `--panel-pad` (via base) | `--panel-pad` | `--panel-pad` (via base) |
+| `--radius-sm` (`4px`) | `--radius-sm` | `--radius-sm` (via base) | `--radius-sm` | `--radius-sm` (via base + admin.css) |
+| `--radius-md` (`8px`) | `--radius-md` | `--radius-md` (via base) | `--radius-md` | `--radius-md` (via base + admin.css) |
+| `--radius-lg` (`12px`) | `--radius-lg` | `--radius-lg` (via base) | `--radius-lg` (via base) | `--radius-lg` (via base + admin.css) |
 
 ### MUD Server Admin — Layout Notes
 
@@ -108,56 +109,67 @@ This is intentional — a sidebar is more appropriate for a multi-page managemen
 dashboard. The layout is defined entirely in `admin.css` and uses base tokens
 for all colours, spacing, radii, and typography. Default theme is dark.
 
+### Syllable Walk Web — Layout Notes
+
+The Syllable Walk Web uses a **two-tier header + status bar** pattern. The top
+row holds branding, a tool switcher (Pipeline / Walker), and a theme toggle.
+The bottom row shows context-dependent sub-screen tabs. `--header-h` is
+overridden to `auto` to accommodate both rows. The main content area switches
+between grid layouts (four-column walker, two-column pipeline) depending on the
+active tool and sub-screen. The layout is defined in `app.css` and uses base
+tokens for all colours, spacing, radii, and typography.
+
 ---
 
 ## Animation Tokens
 
-| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `--transition-fast` (`100ms ease`) | `--transition-fast` | `--transition-fast` (via base) | `--transition-fast` (via base) |
-| `--transition-med` (`200ms ease`) | `--transition-med` | `--transition-med` (via base) | `--transition-med` (via base) |
+| Base CSS (canonical) | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `--transition-fast` (`100ms ease`) | `--transition-fast` | `--transition-fast` (via base) | `--transition-fast` | `--transition-fast` (via base) |
+| `--transition-med` (`200ms ease`) | `--transition-med` | `--transition-med` (via base) | `--transition-med` | `--transition-med` (via base) |
 
 ---
 
 ## Component Class Mapping
 
-| Base CSS | Axis Descriptor Lab | Name Generator | MUD Server Admin |
-|---|---|---|---|
-| `.btn` | `.btn` | `.btn` | `.btn` |
-| `.btn--primary` | `.btn--primary` | `.btn--primary` | `.btn--primary` (submit buttons) |
-| `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.btn--secondary` (actions, refresh) |
-| `.btn--ghost` | `.btn--ghost` | — | — |
-| `.btn--sm` | `.btn--sm` | `.btn--sm` | `.btn--sm` (kick, tombstone, delete) |
-| `.btn--full` | — | — | `.btn--full` (login submit) |
-| `.btn--icon` | — | `.btn--icon` | — |
-| `.input` | `.input` | `.input` | `.input` |
-| `.select` | `.select` | `.select` | `.select` |
-| `.range-input` | — | `.range-input` | — |
-| `.code-editor` | `.code-editor` | — | — |
-| `.badge` | `.badge` | — | `.badge` |
-| `.badge--active` | `.badge--active` | — | `.badge--active` (online status) |
-| `.badge--muted` | — | — | `.badge--muted` (offline status) |
-| `.card` | — | `.card` (help entries) | `.card` (table cards, dashboard) |
-| `.u-muted` | — | — | `.u-muted` (replaced `.muted`) |
-| `.modal` | — | `.modal` | — |
-| `.modal__backdrop` | — | `.modal-backdrop` (hyphenated) | — |
-| `.modal__card` | — | `.modal-card` (hyphenated) | — |
-| `.spinner` | `.spinner` | — | — |
-| `.divider` | `.divider` | `.divider` | — |
-| `.hidden` | `.hidden` | — | — |
-| `.u-sr-only` | `.u-sr-only` (via base) | — | — |
-| — | — | — | `.auth-panel` (login/loading states) |
-| — | — | — | `.tag` (pill-shaped chip) |
-| — | — | — | `.toast`, `.toast-container` |
-| — | — | `.tab`, `.tab.active` | `.tab-button`, `.tab-button.is-active` |
+| Base CSS | Axis Descriptor Lab | Name Generator | Syllable Walk Web | MUD Server Admin |
+|---|---|---|---|---|
+| `.btn` | `.btn` | `.btn` | `.btn` | `.btn` |
+| `.btn--primary` | `.btn--primary` | `.btn--primary` | `.btn--primary` | `.btn--primary` (submit buttons) |
+| `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.btn--secondary` | `.btn--secondary` (actions, refresh) |
+| `.btn--ghost` | `.btn--ghost` | — | `.btn--ghost` | — |
+| `.btn--sm` | `.btn--sm` | `.btn--sm` | `.btn--sm` | `.btn--sm` (kick, tombstone, delete) |
+| `.btn--full` | — | — | `.btn--full` | `.btn--full` (login submit) |
+| `.btn--icon` | — | `.btn--icon` | `.btn--icon` | — |
+| `.input` | `.input` | `.input` | `.input` | `.input` |
+| `.select` | `.select` | `.select` | `.select` | `.select` |
+| `.range-input` | — | `.range-input` | `.range-input` | — |
+| `.code-editor` | `.code-editor` | — | — | — |
+| `.badge` | `.badge` | — | `.badge` | `.badge` |
+| `.badge--active` | `.badge--active` | — | — | `.badge--active` (online status) |
+| `.badge--muted` | — | — | `.badge--muted` (idle/demo labels) | `.badge--muted` (offline status) |
+| `.card` | — | `.card` (help entries) | — | `.card` (table cards, dashboard) |
+| `.u-muted` | — | — | `.u-muted` | `.u-muted` (replaced `.muted`) |
+| `.modal` | — | `.modal` | `.modal` | — |
+| `.modal__backdrop` | — | `.modal-backdrop` (hyphenated) | `.modal__backdrop` (BEM) | — |
+| `.modal__card` | — | `.modal-card` (hyphenated) | `.modal__card` (BEM) | — |
+| `.spinner` | `.spinner` | — | — | — |
+| `.divider` | `.divider` | `.divider` | `.divider` | — |
+| `.hidden` | `.hidden` | — | `.hidden` | — |
+| `.u-sr-only` | `.u-sr-only` (via base) | — | — | — |
+| — | — | — | — | `.auth-panel` (login/loading states) |
+| — | — | — | — | `.tag` (pill-shaped chip) |
+| — | — | — | — | `.toast`, `.toast-container` |
+| — | — | `.tab`, `.tab.active` | `.tab`, `.tab.is-active` | `.tab-button`, `.tab-button.is-active` |
 
 ---
 
 ## Light Theme Values
 
-Axis Descriptor Lab and Name Generator both import `pipe-works-base.css`
-directly and share identical palettes via canonical tokens. The MUD Server
-Admin uses a completely different palette (see Colour Value Differences above).
+Axis Descriptor Lab, Name Generator, and Syllable Walk Web all import
+`pipe-works-base.css` directly and share identical palettes via canonical
+tokens. The MUD Server Admin uses a completely different palette (see Colour
+Value Differences above).
 
 | Token | Dark | Light |
 |---|---|---|
@@ -178,7 +190,7 @@ Admin uses a completely different palette (see Colour Value Differences above).
 
 ## Migration Complete
 
-All three app-mode projects now import `pipe-works-base.css` directly and share
+All four app-mode web apps now import `pipe-works-base.css` directly and share
 identical design tokens, component classes, and font stacks. The Light Theme
 Values table above represents the single source of truth for all projects.
 
@@ -186,4 +198,5 @@ Values table above represents the single source of truth for all projects.
 |---|---|---|---|
 | Axis Descriptor Lab | [#37](https://github.com/pipe-works/pipeworks_axis_descriptor_lab/pull/37) | `styles.css` (app-specific) | Removed ~650 duplicate lines |
 | Name Generator | [#86](https://github.com/pipe-works/pipeworks_name_generation/pull/86) | `app.css` (app-specific) | Removed ~290 duplicate lines |
+| Syllable Walk Web | — | `app.css` (app-specific) | Born migrated; built on `pipe-works-base.css` from inception |
 | MUD Server Admin | [#132](https://github.com/pipe-works/pipeworks_mud_server/pull/132) | `admin.css` (consolidated) | Deleted 6 files, rewrote 1 |
